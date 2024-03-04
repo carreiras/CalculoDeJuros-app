@@ -88,12 +88,14 @@ fun JurosScreen() {
                     )
                     // Caixas de entrada da aplicação
                     CaixaDeEntrada(
-                        value = "",
+                        value = capital,
                         placeholder = "Quanto deseja investir",
                         label = "Valor do investimento",
                         modifier = Modifier,
                         keyboardType = KeyboardType.Decimal
-                    )
+                    ) {
+                        capital = it
+                    }
                     OutlinedTextField(
                         value = taxa,
                         onValueChange = { taxa = it },
