@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import carreiras.com.github.calculodejuros.calculos.calcularJuros
 import carreiras.com.github.calculodejuros.calculos.calcularMontante
+import carreiras.com.github.calculodejuros.components.CaixaDeEntrada
 import carreiras.com.github.calculodejuros.ui.theme.CalculoDeJurosTheme
 
 class MainActivity : ComponentActivity() {
@@ -86,21 +87,12 @@ fun JurosScreen() {
                         fontWeight = FontWeight.Bold
                     )
                     // Caixas de entrada da aplicação
-                    OutlinedTextField(
-                        value = capital,
-                        onValueChange = { capital = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        placeholder = {
-                            Text(text = "Quanto deseja investir?")
-                        },
-                        label = {
-                            Text(text = "Valor do investimento")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
+                    CaixaDeEntrada(
+                        value = "",
+                        placeholder = "Quanto deseja investir",
+                        label = "Valor do investimento",
+                        modifier = Modifier,
+                        keyboardType = KeyboardType.Decimal
                     )
                     OutlinedTextField(
                         value = taxa,
