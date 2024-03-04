@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.Button
-import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +33,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import carreiras.com.github.calculodejuros.calculos.calcularJuros
+import carreiras.com.github.calculodejuros.calculos.calcularMontante
 import carreiras.com.github.calculodejuros.ui.theme.CalculoDeJurosTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,30 +47,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    JurosScreen()
                 }
             }
         }
     }
 }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CalculoDeJurosTheme {
-        Greeting("Android")
-    }
-}
-
-
 
 @Composable
 fun JurosScreen() {
@@ -91,7 +75,7 @@ fun JurosScreen() {
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(32.dp))
-// Formulário para entrada de dados
+            // Formulário para entrada de dados
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -101,7 +85,7 @@ fun JurosScreen() {
                         text = "Dados do Investimento",
                         fontWeight = FontWeight.Bold
                     )
-// Caixas de entrada da aplicação
+                    // Caixas de entrada da aplicação
                     OutlinedTextField(
                         value = capital,
                         onValueChange = { capital = it },
@@ -225,5 +209,13 @@ fun JurosScreen() {
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun JurosScreenPreview() {
+    CalculoDeJurosTheme {
+        JurosScreen()
     }
 }
