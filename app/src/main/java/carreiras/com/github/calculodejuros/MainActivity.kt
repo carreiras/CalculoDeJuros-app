@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import carreiras.com.github.calculodejuros.calculos.calcularJuros
 import carreiras.com.github.calculodejuros.calculos.calcularMontante
 import carreiras.com.github.calculodejuros.components.CaixaDeEntrada
+import carreiras.com.github.calculodejuros.components.CardResultado
 import carreiras.com.github.calculodejuros.ui.theme.CalculoDeJurosTheme
 
 class MainActivity : ComponentActivity() {
@@ -96,38 +97,24 @@ fun JurosScreen() {
                     ) {
                         capital = it
                     }
-                    OutlinedTextField(
+                    CaixaDeEntrada(
                         value = taxa,
-                        onValueChange = { taxa = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        placeholder = {
-                            Text(text = "Qual a taxa de juros mensal?")
-                        },
-                        label = {
-                            Text(text = "Taxa de juros mensal")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
-                    )
-                    OutlinedTextField(
+                        placeholder = "Qual a taxa de juros mensal?",
+                        label = "Taxa de juros mensal",
+                        modifier = Modifier,
+                        keyboardType = KeyboardType.Decimal
+                    ){
+                        taxa = it
+                    }
+                    CaixaDeEntrada(
                         value = tempo,
-                        onValueChange = { tempo = it },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        placeholder = {
-                            Text(text = "Qual o tempo em meses?")
-                        },
-                        label = {
-                            Text(text = "Período em meses")
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Decimal
-                        )
-                    )
+                        placeholder = "Qual o período do investimento em meses?",
+                        label = "Período em meses",
+                        modifier = Modifier,
+                        keyboardType = KeyboardType.Decimal
+                    ){
+                        tempo = it
+                    }
                     Button(
                         onClick = {
                             juros = calcularJuros(
@@ -149,59 +136,8 @@ fun JurosScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
-// Resultado da aplicação
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF4CAF50)
-                )
-            ) {
-                Column(
-                    modifier = Modifier
-//.fillMaxSize()
-                        .padding(16.dp)
-                ) {
-                    Text(
-                        text = "Resultado",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            text = "Juros",
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = juros.toString(),
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            text = "Montante",
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = montante.toString(),
-                            modifier = Modifier.padding(end = 8.dp),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.White
-                        )
-                    }
-                }
-            }
+            // Resultado da aplicação
+            CardResultado(juros = juros, montante = montante)
         }
     }
 }
