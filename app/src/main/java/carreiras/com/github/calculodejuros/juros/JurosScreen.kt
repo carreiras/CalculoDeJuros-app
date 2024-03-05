@@ -41,8 +41,12 @@ fun JurosScreen(jurosScreenViewModel: JurosScreenViewModel) {
     val tempo by jurosScreenViewModel
         .tempoState
         .observeAsState(initial = "")
-    var juros by remember { mutableStateOf(0.0) }
-    var montante by remember { mutableStateOf(0.0) }
+    val juros by jurosScreenViewModel
+        .jurosState
+        .observeAsState(initial = 0.0)
+    val montante by jurosScreenViewModel
+        .montanteState
+        .observeAsState(initial = 0.0)
     Box(
         modifier = Modifier.padding(16.dp),
         contentAlignment = Alignment.Center
@@ -97,15 +101,8 @@ fun JurosScreen(jurosScreenViewModel: JurosScreenViewModel) {
                     }
                     Button(
                         onClick = {
-                            juros = calcularJuros(
-                                capital = capital.toDouble(),
-                                taxa = taxa.toDouble(),
-                                tempo = tempo.toDouble()
-                            )
-                            montante = calcularMontante(
-                                capital = capital.toDouble(),
-                                juros = juros
-                            )
+                            jurosScreenViewModel.calcularJurosInvestimento()
+                            jurosScreenViewModel.calcularMontanteInvestimento()
                         },
                         modifier = Modifier
                             .fillMaxWidth()
