@@ -11,6 +11,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,10 +31,16 @@ import carreiras.com.github.calculodejuros.components.CardResultado
 import carreiras.com.github.calculodejuros.ui.theme.CalculoDeJurosTheme
 
 @Composable
-fun JurosScreen() {
-    var capital by remember { mutableStateOf("") }
-    var taxa by remember { mutableStateOf("") }
-    var tempo by remember { mutableStateOf("") }
+fun JurosScreen(jurosScreenViewModel: JurosScreenViewModel) {
+    val capital by jurosScreenViewModel
+        .capital
+        .observeAsState(initial = "")
+    val taxa by jurosScreenViewModel
+        .taxaState
+        .observeAsState(initial = "")
+    val tempo by jurosScreenViewModel
+        .tempoState
+        .observeAsState(initial = "")
     var juros by remember { mutableStateOf(0.0) }
     var montante by remember { mutableStateOf(0.0) }
     Box(
@@ -68,7 +75,7 @@ fun JurosScreen() {
                         modifier = Modifier,
                         keyboardType = KeyboardType.Decimal
                     ) {
-                        capital = it
+                        jurosScreenViewModel.onCapitalChanged(it)
                     }
                     CaixaDeEntrada(
                         value = taxa,
@@ -77,7 +84,7 @@ fun JurosScreen() {
                         modifier = Modifier,
                         keyboardType = KeyboardType.Decimal
                     ){
-                        taxa = it
+                        jurosScreenViewModel.onTaxaChanged(it)
                     }
                     CaixaDeEntrada(
                         value = tempo,
@@ -86,7 +93,7 @@ fun JurosScreen() {
                         modifier = Modifier,
                         keyboardType = KeyboardType.Decimal
                     ){
-                        tempo = it
+                        jurosScreenViewModel.onTempoChanged(it)
                     }
                     Button(
                         onClick = {
@@ -119,6 +126,6 @@ fun JurosScreen() {
 @Composable
 fun JurosScreenPreview() {
     CalculoDeJurosTheme {
-        JurosScreen()
+        JurosScreen(JurosScreenViewModel())
     }
 }

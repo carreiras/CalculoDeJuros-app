@@ -38,6 +38,7 @@ import carreiras.com.github.calculodejuros.calculos.calcularMontante
 import carreiras.com.github.calculodejuros.components.CaixaDeEntrada
 import carreiras.com.github.calculodejuros.components.CardResultado
 import carreiras.com.github.calculodejuros.juros.JurosScreen
+import carreiras.com.github.calculodejuros.juros.JurosScreenViewModel
 import carreiras.com.github.calculodejuros.ui.theme.CalculoDeJurosTheme
 
 class MainActivity : ComponentActivity() {
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    JurosScreen()
+                    JurosScreen(JurosScreenViewModel())
                 }
             }
         }
